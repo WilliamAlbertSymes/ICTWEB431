@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        .myDiv {
+            border:5px outset rgb(19, 18, 18);
+            background-color:rgb(195, 217, 224);
+            text-align:center;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
+    <title>Webpage</title>
+    <button onclick="myFunction()" id="RSSBUTTON">Get this feed!</button>
+</head>
+<body>
+    
+    <div class="myDiv">
+        <h2>RSS</h2>
+        <p id="description"><img src= "https://preview.redd.it/5p4lwv23k7md1.jpeg?overlay-align=bottom,left&crop=500:261.780104712,smart&overlay-height=15p&overlay=%2Fwatermark%2Ft5_3ndbi.png%3Fs%3D6ab5a0944358724deb48bfc48dddea09d1b34c8c&width=500&height=261.780104712&auto=webp&s=99ff61adf107b7c7b78df1fc86285922bb4e4535" alt= "Rss Feed"</p>
+         <p id="title">
+        </p> 
+    </div>
+    <form action="input" id="myForm">
+        <label for="age">Age</label>
+        <input type="number" age="age" id="age">
+    </form>
+    <button onclick="changeDescription()"id= "description"> Change Description </button>
+    <button onclick="dataValadation()" id="dataValadation">data Valadation</button>
+    <button onclick="changePageTitle()"> Change Page Title</button> 
+
+    <form action= "">
+    <label for="fname">First name:</label><br>
+    <input type="text" id="fname" name="fname"><br>
+    <label for="lname">Last name:</label><br>
+    <input type="text" id="lname" name="lname">
+
+    </form>
+    <script>
+        
+        function changePageTitle() { // changing the Page title from 'Webpage' to "Change Page Title"
+            var newPageTitle = 'The Title has changed';
+            document.querySelector('title').textContent = newPageTitle;
+
+       }
+        function changeDescription(){
+           // document.getElementById("description").innerHTML = description;
+                
+        
+
+        const RssURL2= 'https://rss.app/feeds/bhKNteodkzid4dJT.xml';// sports rss feed from reddit
+        const RssURL='https:rss.app/feeds/fbw1cC3PTPDhp8dt.xmlv';//rss feed supplied for the lesson
+            fetch(RssURL2) // Fethcing URL fom given set of URL's available
+            .then(response=>response.text())//converting response with text
+            //turns out that this link gives xml format instead of json so we have to use xml
+                //dataContainer.innerHTML =
+            .then(str=> {//alert(str));
+                const parser = new DOMParser();
+                const xmlDoc = parser.parseFromString(str, 'text/xml');//load the text into xml object
+                const items = xmlDoc.querySelectorAll('item');// select all item and load into list 
+              
+                items.forEach(item => {
+                                                var title = item.querySelector('title').textContent;
+                                                document.getElementById("title").innerHTML = title;
+                                                var link = item.querySelector('link').textContent;
+                                                //document.getElementById("link").innerHTML = link;     
+                                                document.getElementById("description").innerHTML = description;                          
+                                                var description = item.querySelector('description').textContent;
+                                                console.log(description);
+                                                
+                
+                    //document.getElementById("description").innerHTML= item.querySelector('desription').textContent;
+                    // html.ElementToBe("Element id").text = xml.ElementFrom("Element name").text;
+                     }
+                    )
+                }) 
+            }
+
+            //.catch(error=>)
+                    //console.error("Fetch Failed:",error);
+
+               
+                    
+
+                
+
+    
+            //var div= myjson.item[0].description;
+            /*var dataContainer = document.getElementById('RSSfeed');*/
+            /*var response = awaitfetch(RssURL);
+            var str = (response.text);*/
+           
+
+
+        //var bt = document.getElementById("button1");
+        //bt.addEventListener("click", dataValadation());
+        
+        function dataValadation() // a function for data valadation
+        {
+
+        var ageString = document.getElementById("age").value; //having the string reconised as a word before number
+
+        alert(ageString); //having an alert to say if the number is within the parameters of 0 and 200
+        var age = parseInt(ageString);
+            if(age>200||age<=0)
+                {alert("Data entry invalide");  //creates an alert if it is below or above 200                  
+                }
+        }
+        
+        
+
+
+
+    </script>
+</body>
+</html>
